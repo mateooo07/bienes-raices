@@ -1,0 +1,38 @@
+# =========================
+# Sistema / Editores
+# =========================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
+
+# =========================
+# Node / Gulp
+# =========================
+node_modules/
+package-lock.json
+yarn.lock
+dist/
+build/
+.cache/
+.temp/
+gulpfile.js.map
+
+# =========================
+# Sass / CSS
+# =========================
+.sass-cache/
+*.css.map
+
+# Carpeta de salida (ejemplo si compilas a /public o /build)
+public/css/
+public/js/
+
+
+# =========================
+# Configuración sensible
+# =========================
+.env
+.env.local
+.env.*.local
