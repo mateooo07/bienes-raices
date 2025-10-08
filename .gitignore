@@ -36,3 +36,6 @@ public/js/
 .env
 .env.local
 .env.*.local
+
+
+base.html
