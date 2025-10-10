@@ -51,5 +51,6 @@ sessions/
 storage/
 vendor/
 vendor
+info.php
 
 
