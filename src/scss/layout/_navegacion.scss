@@ -35,37 +35,45 @@
     }
 }
 
-.navegacion{
-
-    visibility: hidden;
+.navegacion {
+    overflow: hidden;
+    max-height: 0;
     opacity: 0;
-    transition: visibility .3s ease-in-out, opacity .5s linear;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
     margin-top: 1rem;
 
-    @include tablet{
+    @include tablet {
         display: flex;
         align-items: center;
-        visibility: visible;
         opacity: 1;
+        max-height: none;
+        overflow: visible;
         margin-top: 0;
     }
 
-    a{
+    a {
         color: $blanco;
         text-decoration: none;
         font-size: 2.2rem;
         display: block;
         text-align: center;
 
-        @include tablet{
+        @include tablet {
             margin-right: 2rem;
             font-size: 1.8rem;
-            &:last-of-type{
+
+            &:last-of-type {
                 margin-right: 0;
             }
         }
     }
 }
+
+.mostrar {
+    max-height: 30rem; // lo suficiente para mostrar todos los enlaces
+    opacity: 1;
+}
+
 
 .mobile-menu{
 
@@ -83,4 +91,5 @@
 .mostrar{
     visibility: visible;
     opacity: 1;
+    height: auto;
 }

@@ -8,7 +8,7 @@
         color: $gris;
     }
 
-    .anuncio{
+    .anuncio, .resumen-propiedad{
         background-color: $grisOscuro;
         border:1px solid $grisOscuro;
 
@@ -16,9 +16,39 @@
             color: $verde;
         }
 
+        .boton-amarillo-block{
+            color:$blanco;
+        }
         .icono{
-        filter: invert(100%);
+            filter: invert(100%);
+        }
     }
+
+    .texto-nosotros blockquote{
+        color: $blanco;
+    }
+
+    .formulario {
+        legend, label, p {
+            color: $blanco;
+        }
+
+        input:not([type="submit"]),
+        textarea,
+        select {
+            background-color: darken($grisOscuro, 10%);
+            color: $blanco;
+            border: 1px solid lighten($grisOscuro, 10%);
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: lighten($grisOscuro, 40%);
+        }
+
+        input[type="radio"] {
+            accent-color: $verde; // o el color principal del tema
+        }
     }
 
     
