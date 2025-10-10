@@ -8,14 +8,17 @@
     $consulta = "SELECT * FROM vendedores";
     $resultado = mysqli_query($db, $consulta);
 
-    $titulo = $_POST['titulo'] ?? '';
-    $precio = $_POST['precio'] ?? '';
-    $descripcion = $_POST['descripcion'] ?? '';
-    $habitaciones = $_POST['habitacion'] ?? '';
-    $wc = $_POST['wc'] ?? '';
-    $estacionamiento = $_POST['estacionamiento'] ?? '';
-    $vendedorId = $_POST['vendedor'] ?? '';
+    $titulo = mysqli_real_escape_string($db, $_POST['titulo'] ?? '');
+    $precio = mysqli_real_escape_string($db, $_POST['precio'] ?? '');
+    $descripcion = mysqli_real_escape_string($db, $_POST['descripcion'] ?? '');
+    $habitaciones = mysqli_real_escape_string($db, $_POST['habitacion'] ?? '');
+    $wc = mysqli_real_escape_string($db, $_POST['wc'] ?? '');
+    $estacionamiento = mysqli_real_escape_string($db, $_POST['estacionamiento'] ?? '');
+    $vendedorId = mysqli_real_escape_string($db, $_POST['vendedor'] ?? '');
     $creado = date("Y/m/d");
+
+    $imagen = $_FILES["imagen"];
+
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
@@ -48,6 +51,16 @@
             $errores[] = "Elige un vendedor";
         }
 
+        if(!$imagen["name"] || $imagen["error"]){
+            $errores[] = "La imagen es obligatoria";
+        }
+
+        $medida = 1000 * 100;
+
+        if($imagen["size"] > $medida){
+            $errores[] = "La imagen es muy pesada";
+        }
+
         if(empty($errores)){
             $query = "INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamientos, creado, vendedores_id) VALUES ('$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedorId')";
 
@@ -75,7 +88,7 @@
             </div>
         <?php endforeach; ?>
 
-        <form class="formulario" method="POST" action="/admin/propiedades/crear.php">
+        <form class="formulario" method="POST" action="/admin/propiedades/crear.php" enctype="multipart/form-data">
             <fieldset>
                 <legend>Información General</legend>
 
