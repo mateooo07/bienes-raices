@@ -7,7 +7,7 @@
 }
 
 .entrada-blog{
-    margin-bottom: 2rem;
+    margin-bottom: 4rem;
 
     @include tablet{
         display: grid;
@@ -16,7 +16,7 @@
     }
 
     &:last-of-type{
-        margin-bottom: 0;
+        margin-bottom: 2rem;
     }
 }
 
