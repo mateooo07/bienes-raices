@@ -4,6 +4,9 @@
     $db = conectarDB();
 
     $errores = [];
+    
+    $consulta = "SELECT * FROM vendedores";
+    $resultado = mysqli_query($db, $consulta);
 
     $titulo = $_POST['titulo'] ?? '';
     $precio = $_POST['precio'] ?? '';
@@ -12,6 +15,7 @@
     $wc = $_POST['wc'] ?? '';
     $estacionamiento = $_POST['estacionamiento'] ?? '';
     $vendedorId = $_POST['vendedor'] ?? '';
+    $creado = date("Y/m/d");
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
@@ -45,9 +49,14 @@
         }
 
         if(empty($errores)){
-            $query = " INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamientos, vendedores_id) VALUES ( '$titulo', '$precio','$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$vendedorId')";
+            $query = "INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamientos, creado, vendedores_id) VALUES ('$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedorId')";
+
 
             $resultado = mysqli_query($db, $query);
+
+            if($resultado){
+                header("Location: /admin");
+            }
         }
 
         
@@ -97,10 +106,11 @@
             <fieldset>
                 <legend>Vendedor</legend>
                 
-                <select name="vendedor">
+                <select name="vendedor" >
                     <option value="" disabled selected>-- Seleccione --</option>
-                    <option value="1">Mateo Francisco Pavoni</option>
-                    <option value="2">Jeremías Guzmán</option>
+                    <?php while($row = mysqli_fetch_assoc($resultado)): ?>
+                        <option <?php echo $vendedorId === $row["id"] ? "selected" : ""; ?> value="<?php echo $row ["id"]; ?>"> <?php echo $row["nombre"] . " " . $row["apellido"]; ?></option>
+                    <?php endwhile; ?>
                 </select>
             </fieldset>
 
