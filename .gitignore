@@ -39,15 +39,17 @@ dist/
 .env
 .env.local
 .env.*.local
-config.php  # si contiene datos sensibles
+config.php
 
 # =========================
 # PHP / Laravel / frameworks
 # =========================
-/vendor/        # si usas Composer
+/vendor/
 cache/
 logs/
 sessions/
 storage/
+vendor/
+vendor
 
 
