@@ -1,0 +1,17 @@
+{
+    "name": "mateo/bienesraices",
+    "autoload": {
+        "psr-4": {
+            "Mateo\\Bienesraices\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mateo Pavoni",
+            "email": "mateopavoni905@gmail.com"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}

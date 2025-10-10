@@ -32,6 +32,7 @@ gulpfile.js.map
 build/
 dist/
 
+
 # =========================
 # Configuración sensible
 # =========================
@@ -43,8 +44,10 @@ config.php  # si contiene datos sensibles
 # =========================
 # PHP / Laravel / frameworks
 # =========================
-vendor/        # si usas Composer
+/vendor/        # si usas Composer
 cache/
 logs/
 sessions/
 storage/
+
+
