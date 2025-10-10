@@ -6,15 +6,16 @@ Thumbs.db
 .vscode/
 .idea/
 *.log
+*.swp
+*.bak
+*.tmp
 
 # =========================
-# Node / Gulp
+# Node / NPM / Gulp
 # =========================
 node_modules/
 package-lock.json
 yarn.lock
-dist/
-build/
 .cache/
 .temp/
 gulpfile.js.map
@@ -25,10 +26,11 @@ gulpfile.js.map
 .sass-cache/
 *.css.map
 
-# Carpeta de salida (ejemplo si compilas a /public o /build)
-public/css/
-public/js/
-
+# =========================
+# Carpeta de compilación
+# =========================
+build/
+dist/
 
 # =========================
 # Configuración sensible
@@ -36,6 +38,13 @@ public/js/
 .env
 .env.local
 .env.*.local
+config.php  # si contiene datos sensibles
 
-
-base.html
+# =========================
+# PHP / Laravel / frameworks
+# =========================
+vendor/        # si usas Composer
+cache/
+logs/
+sessions/
+storage/
