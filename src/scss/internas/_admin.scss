@@ -13,20 +13,44 @@
     }
 }
 
-.tabla-propiedades{
-    margin-top: 4rem;
-    width: 100%;
-    border-spacing: 0;
+.tabla-propiedades {
+    margin: 4rem auto 0 auto;
+    width: 120rem;
+    border-collapse: collapse;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-    thead{
+    thead {
         background-color: $verde;
-        th{
+        th {
             color: $blanco;
-            padding: 2rem;
+            padding: 1rem 2rem;
+            text-align: left;
+            font-size: 1.1rem;
+            text-transform: uppercase;
         }
     }
 
-    .imagen-tabla{
-        width: 10rem;
+    tbody {
+        tr {
+            border-bottom: 1px solid #ddd;
+            transition: background-color 0.3s;
+
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.05);
+            }
+
+            td {
+                padding: 1rem 2rem;
+                vertical-align: middle;
+
+                .imagen-tabla {
+                    width: 25rem;
+                    height: auto;
+                    border-radius: 0.5rem;
+                    object-fit: cover;
+                }
+            }
+        }
     }
 }

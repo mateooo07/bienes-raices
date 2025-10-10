@@ -1,4 +1,13 @@
 <?php
+
+    require "../includes/config/database.php";
+    $db = conectarDB();
+
+    $query = "SELECT * FROM propiedades";
+
+    $resultadoConsulta = mysqli_query($db, $query);
+
+    
     $resultado = $_GET["res"] ?? null;
     require "../includes/funciones.php";
     incluirTemplate("header");
@@ -24,20 +33,23 @@
         </thead>
 
         <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td><img src="" alt="imagen propiedad ..." class="imagen-tabla"></td>
-                <td>$</td>
-                <td>
-                    <a href="#" class="boton-amarillo-block">Actualizar</a>
-                    <a href="#" class="boton-rojo">Eliminar</a>
-                </td>
-            </tr>
+            <?php while($propiedad = mysqli_fetch_assoc($resultadoConsulta)): ?>
+                <tr>
+                    <td><?php echo $propiedad["id"] ?></td>
+                    <td><?php echo $propiedad["titulo"]?></td>
+                    <td><img src="/imagenes/<?php echo $propiedad["imagen"]?>" alt="imagen propiedad ..." class="imagen-tabla"></td>
+                    <td>$<?php echo $propiedad["precio"] ?></td>
+                    <td>
+                        <a href="#" class="boton-amarillo-block">Actualizar</a>
+                        <a href="#" class="boton-rojo">Eliminar</a>
+                    </td>
+                </tr>
+            <?php endwhile; ?>
         </tbody>
     </table>
 
 
 <?php
+    mysqli_close($db);
     incluirTemplate("footer");
 ?>
