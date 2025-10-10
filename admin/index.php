@@ -11,6 +11,32 @@
         <?php endif; ?>
         <a href="/admin/propiedades/crear.php" class="boton boton-verde">Nueva Propiedad</a>
     </main>
+    
+    <table class="tabla-propiedades">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Imagen</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td><img src="" alt="imagen propiedad ..." class="imagen-tabla"></td>
+                <td>$</td>
+                <td>
+                    <a href="#" class="boton-amarillo-block">Actualizar</a>
+                    <a href="#" class="boton-rojo">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
 
 <?php
     incluirTemplate("footer");
