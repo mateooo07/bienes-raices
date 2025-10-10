@@ -1,12 +1,10 @@
 <?php
-
     require "../includes/config/database.php";
     $db = conectarDB();
 
     $query = "SELECT * FROM propiedades";
 
     $resultadoConsulta = mysqli_query($db, $query);
-
     
     $resultado = $_GET["res"] ?? null;
     require "../includes/funciones.php";
@@ -40,7 +38,7 @@
                     <td><img src="/imagenes/<?php echo $propiedad["imagen"]?>" alt="imagen propiedad ..." class="imagen-tabla"></td>
                     <td>$<?php echo $propiedad["precio"] ?></td>
                     <td>
-                        <a href="#" class="boton-amarillo-block">Actualizar</a>
+                        <a href="/admin/propiedades/actualizar.php?id=<?php echo $propiedad["id"] ?>" class="boton-amarillo-block">Actualizar</a>
                         <a href="#" class="boton-rojo">Eliminar</a>
                     </td>
                 </tr>
