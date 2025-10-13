@@ -3,9 +3,12 @@
 require "includes/config/database.php";
 $db = conectarDB();
 
-$email = "correodeejemplo@correo.com";
+$email = "admincorreo@ejemplo.com";
 $password = "123456";
 
-$query = "INSERT INTO usuarios (email, password) VALUES ('{$email}', '{$password}')";
+$passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+
+$query = "INSERT INTO usuarios (email, password) VALUES ('{$email}', '{$passwordHash}')";
 
 mysqli_query($db, $query);
