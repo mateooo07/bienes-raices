@@ -17,6 +17,7 @@ class Propiedad {
     public function __construct(){
         $this->id = $args["id"] ?? "";
         $this->titulo = $args["titulo"] ?? "";
+        $this->precio = $args["precio"] ?? "";
         $this->imagen = $args["imagen"] ?? "";
         $this->descripcion = $args["descripcion"] ?? "";
         $this->habitaciones = $args["habitaciones"] ?? "";

@@ -5,13 +5,9 @@
 
     $propiedad = new Propiedad;
 
-    var_dump($propiedad);
+    debugear($propiedad);
 
-    $auth = estaAutenticado();
-
-    if(!$auth){
-        header("Location: /");
-    }
+    estaAutenticado();
 
     $db = conectarDB();
 
