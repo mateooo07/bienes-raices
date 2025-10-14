@@ -37,10 +37,10 @@
     $vendedorId = $propiedad["vendedores_id"];
     $imagenPropiedad = $propiedad["imagen"];
 
-    $imagen = $_FILES["imagen"];
-
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+        $imagen = $_FILES["imagen"];
 
         if(!$titulo){
             $errores[] = "Debes añadir un título";

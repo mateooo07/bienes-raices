@@ -33,6 +33,8 @@
                     
                     $_SESSION["usuario"] = $usuario["email"];
                     $_SESSION["login"] = true; 
+
+                    header("Location: /admin");
                 }else{
                     $errores[] = "El usuario o la contraseña son incorrectos";
                 }

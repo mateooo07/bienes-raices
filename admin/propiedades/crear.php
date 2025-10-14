@@ -25,10 +25,14 @@
     $vendedorId = mysqli_real_escape_string($db, $_POST['vendedor'] ?? '');
     $creado = date("Y/m/d");
 
-    $imagen = $_FILES["imagen"];
-
-
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+
+        $imagen = $_FILES["imagen"] ?? null;
+
+        if (!$imagen || $imagen["error"] !== UPLOAD_ERR_OK) {
+            $errores[] = "La imagen es obligatoria o hubo un error al subirla.";
+        }
 
         if(!$titulo){
             $errores[] = "Debes añadir un título";
