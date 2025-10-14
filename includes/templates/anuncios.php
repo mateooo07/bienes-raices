@@ -1,6 +1,4 @@
 <?php 
-    require __DIR__ . "/../config/database.php";
-
     $db = conectarDB();
 
     $limite = $limite ?? 20;

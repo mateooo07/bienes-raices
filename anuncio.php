@@ -1,9 +1,8 @@
 <?php
+    require "includes/app.php";
     $id = $_GET["id"];
 
     $id = filter_var($id, FILTER_VALIDATE_INT);
-
-    require __DIR__ . "/includes/config/database.php";
 
     $db = conectarDB();
 
@@ -24,7 +23,6 @@
     $propiedad = mysqli_fetch_assoc($resultado);
 
 
-    require "includes/funciones.php";
     incluirTemplate("header");
 ?>
     <main class="contenedor seccion contenido-centrado">

@@ -1,8 +1,9 @@
 {
     "name": "mateo/bienesraices",
+    "description": "BIENES RAICES PROYECTO FULLSTACK",
     "autoload": {
         "psr-4": {
-            "Mateo\\Bienesraices\\": "src/"
+            "App\\": "./classes"
         }
     },
     "authors": [
