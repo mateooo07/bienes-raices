@@ -34,11 +34,11 @@
                     $_SESSION["usuario"] = $usuario["email"];
                     $_SESSION["login"] = true; 
                 }else{
-                    $errores[] = "La contraseña es incorrecta";
+                    $errores[] = "El usuario o la contraseña son incorrectos";
                 }
 
             }else{
-                $errores[] = "El usuario con el email proporcionado no existe";
+                $errores[] = "El usuario o la contraseña son incorrectos";
             }
         }
     }

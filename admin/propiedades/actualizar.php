@@ -1,4 +1,11 @@
-<?php 
+<?php
+    require "../../includes/funciones.php";
+
+    $auth = estaAutenticado();
+
+    if(!$auth){
+        header("Location: /");
+    }
     require "../../includes/config/database.php";
 
     $id = $_GET["id"];
@@ -121,7 +128,6 @@
         
     }
 
-    require "../../includes/funciones.php";
     incluirTemplate("header");
 ?>
 
