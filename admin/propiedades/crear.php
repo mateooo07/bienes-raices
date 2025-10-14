@@ -3,10 +3,6 @@
 
     use App\Propiedad;
 
-    $propiedad = new Propiedad;
-
-    debugear($propiedad);
-
     estaAutenticado();
 
     $db = conectarDB();
@@ -27,6 +23,11 @@
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
+        $propiedad = new Propiedad($_POST);
+
+        $propiedad -> guardar();
+
+        debugear($propiedad);
 
         $imagen = $_FILES["imagen"] ?? null;
 
@@ -130,7 +131,7 @@
                 <legend>Información de la Propiedad</legend>
 
                 <label for="habitacion">Habitación</label>
-                <input type="number" id="habitacion" min="1" placeholder="1" max="9" name="habitacion" value="<?php echo $habitaciones; ?>">
+                <input type="number" id="habitacion" min="1" placeholder="1" max="9" name="habitaciones" value="<?php echo $habitaciones; ?>">
 
                 <label for="wc">Baño</label>
                 <input type="number" id="wc" min="1" placeholder="1" max="9" name="wc" value="<?php echo $wc; ?>">
@@ -141,7 +142,7 @@
             <fieldset>
                 <legend>Vendedor</legend>
                 
-                <select name="vendedor" >
+                <select name="vendedores_id" >
                     <option value="" disabled selected>-- Seleccione --</option>
                     <?php while($row = mysqli_fetch_assoc($resultado)): ?>
                         <option <?php echo $vendedorId === $row["id"] ? "selected" : ""; ?> value="<?php echo $row ["id"]; ?>"> <?php echo $row["nombre"] . " " . $row["apellido"]; ?></option>
