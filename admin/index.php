@@ -1,37 +1,45 @@
 <?php
-require "../includes/config/database.php";
-$db = conectarDB();
+    session_start();
 
-// Consulta de propiedades
-$query = "SELECT * FROM propiedades";
-$resultadoConsulta = mysqli_query($db, $query);
+    $auth = $_SESSION["login"];
 
-// Resultado de operaciones
-$resultado = $_GET["res"] ?? null;
-
-// Manejo de eliminación
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $id = $_POST["id"] ?? null;
-    $id = filter_var($id, FILTER_VALIDATE_INT);
-
-    if ($id) {
-        $queryDelete = "DELETE FROM propiedades WHERE id = {$id}";
-        $resDelete = mysqli_query($db, $queryDelete);
-
-        $queryImagen = "SELECT imagen FROM propiedades WHERE id = {$id}";
-        $resImagen = mysqli_query($db, $queryImagen);
-        $propiedad = mysqli_fetch_assoc($resImagen);
-
-        unlink("../imagenes/" . $propiedad["imagen"]);
-
-        if ($resDelete) {
-            header("Location: /admin?res=3"); 
-        } 
+    if(!$auth){
+        header("Location: /");
     }
-}
 
-require "../includes/funciones.php";
-incluirTemplate("header");
+    require "../includes/config/database.php";
+    $db = conectarDB();
+
+    // Consulta de propiedades
+    $query = "SELECT * FROM propiedades";
+    $resultadoConsulta = mysqli_query($db, $query);
+
+    // Resultado de operaciones
+    $resultado = $_GET["res"] ?? null;
+
+    // Manejo de eliminación
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        $id = $_POST["id"] ?? null;
+        $id = filter_var($id, FILTER_VALIDATE_INT);
+
+        if ($id) {
+            $queryDelete = "DELETE FROM propiedades WHERE id = {$id}";
+            $resDelete = mysqli_query($db, $queryDelete);
+
+            $queryImagen = "SELECT imagen FROM propiedades WHERE id = {$id}";
+            $resImagen = mysqli_query($db, $queryImagen);
+            $propiedad = mysqli_fetch_assoc($resImagen);
+
+            unlink("../imagenes/" . $propiedad["imagen"]);
+
+            if ($resDelete) {
+                header("Location: /admin?res=3"); 
+            } 
+        }
+    }
+
+    require "../includes/funciones.php";
+    incluirTemplate("header");
 ?>
 
 <main class="contenedor seccion">
