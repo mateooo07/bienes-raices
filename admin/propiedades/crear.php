@@ -1,99 +1,120 @@
 <?php
-    require "../../includes/app.php";
+require "../../includes/app.php";
 
-    use App\Propiedad;
+use App\Propiedad;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager as Image;
 
-    estaAutenticado();
+estaAutenticado();
 
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+$errores = [];
 
-        $propiedad = new Propiedad($_POST);
-        
-        $errores = $propiedad->validar();
+$consultaVendedores = "SELECT * FROM vendedores";
+$resultadoVendedores = mysqli_query($db, $consultaVendedores);
 
-        if(empty($errores)){
+$propiedad = new Propiedad();
 
-            $propiedad -> guardar();
-            $imagen = $_FILES["imagen"] ?? null;
-            
-            $carpetaImagenes = "../../imagenes/";
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-            if(!is_dir($carpetaImagenes)){
-                mkdir($carpetaImagenes, 0777, true); // true permite crear carpetas intermedias si faltan
-            }
+    $propiedad = new Propiedad($_POST);
 
-            $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
-            
-            move_uploaded_file($imagen["tmp_name"], $carpetaImagenes . $nombreImagen);
+    $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
 
-
-            $resultado = mysqli_query($db, $query);
-
-            if($resultado){
-                header("Location: /admin?res=1");
-            }
-        }
-
-        
+    if ($_FILES["imagen"]["tmp_name"]) {
+        $manager = new Image(Driver::class);
+        $imagen = $manager->read($_FILES["imagen"]["tmp_name"])->cover(800, 600);
+        $propiedad->setImagen($nombreImagen);
     }
 
-    incluirTemplate("header");
+    $errores = $propiedad->validar();
+
+    if (empty($errores)) {
+
+        $carpetaImagenes = "../../imagenes/";
+
+        if (!is_dir($carpetaImagenes)) {
+            mkdir($carpetaImagenes, 0777, true);
+        }
+
+        $imagen->save($carpetaImagenes . $nombreImagen);
+
+        if ($_FILES["imagen"]["tmp_name"]) {
+            $imagen->save($carpetaImagenes . $nombreImagen);
+        }
+
+        $resultado = $propiedad->guardar();
+
+        if ($resultado) {
+            header("Location: /admin?res=1");
+            exit;
+        }
+    }
+}
+
+incluirTemplate("header");
 ?>
 
-    <main class="contenedor seccion">
-        <h1>Crear</h1>
-        <a href="/admin" class="boton boton-amarillo">←</a>
-        <?php foreach($errores as $error): ?>
-            <div class="alerta error">
-                <?php echo $error; ?>
-            </div>
-        <?php endforeach; ?>
+<main class="contenedor seccion">
+    <h1>Crear Propiedad</h1>
+    <a href="/admin" class="boton boton-amarillo">← Volver</a>
 
-        <form class="formulario" method="POST" action="/admin/propiedades/crear.php" enctype="multipart/form-data">
-            <fieldset>
-                <legend>Información General</legend>
+    <?php foreach ($errores as $error): ?>
+        <div class="alerta error"><?php echo $error; ?></div>
+    <?php endforeach; ?>
 
-                <label for="titulo">Título</label>
-                <input type="text" id="titulo" placeholder="Casa de Lujo en el Lago" name="titulo" value="<?php echo $titulo; ?>">
+    <form class="formulario" method="POST" action="/admin/propiedades/crear.php" enctype="multipart/form-data">
+        <fieldset>
+            <legend>Información General</legend>
 
-                <label for="precio">Precio</label>
-                <input type="number" id="precio" placeholder="$3,000,000.00" name="precio" value="<?php echo $precio; ?>">
+            <label for="titulo">Título</label>
+            <input type="text" id="titulo" name="titulo" placeholder="Casa de lujo en el lago"
+                value="<?php echo htmlspecialchars($propiedad->titulo, ENT_QUOTES); ?>">
 
-                <label for="imagen">Imagen</label>
-                <input type="file" id="imagen" accept="image/jpeg, image/png" name="imagen">
+            <label for="precio">Precio</label>
+            <input type="number" id="precio" name="precio" placeholder="$3,000,000.00"
+                value="<?php echo htmlspecialchars($propiedad->precio, ENT_QUOTES); ?>">
 
-                <label for="descripcion">Descripción</label>
-                <textarea id="descripcion" name="descripcion"><?php echo $descripcion; ?></textarea>
-            </fieldset>
-            <fieldset>
-                <legend>Información de la Propiedad</legend>
+            <label for="imagen">Imagen</label>
+            <input type="file" id="imagen" accept="image/jpeg, image/png" name="imagen">
 
-                <label for="habitacion">Habitación</label>
-                <input type="number" id="habitacion" min="1" placeholder="1" max="9" name="habitaciones" value="<?php echo $habitaciones; ?>">
+            <label for="descripcion">Descripción</label>
+            <textarea id="descripcion" name="descripcion"><?php echo htmlspecialchars($propiedad->descripcion, ENT_QUOTES); ?></textarea>
+        </fieldset>
 
-                <label for="wc">Baño</label>
-                <input type="number" id="wc" min="1" placeholder="1" max="9" name="wc" value="<?php echo $wc; ?>">
+        <fieldset>
+            <legend>Información de la Propiedad</legend>
 
-                <label for="estacionamientos">Estacionamiento</label>
-                <input type="number" id="estacionamientos" min="1" placeholder="1" max="9" name="estacionamientos" value="<?php echo $estacionamiento; ?>">
-            </fieldset>
-            <fieldset>
-                <legend>Vendedor</legend>
-                
-                <select name="vendedores_id" >
-                    <option value="" disabled selected>-- Seleccione --</option>
-                    <?php while($row = mysqli_fetch_assoc($resultado)): ?>
-                        <option <?php echo $vendedorId === $row["id"] ? "selected" : ""; ?> value="<?php echo $row ["id"]; ?>"> <?php echo $row["nombre"] . " " . $row["apellido"]; ?></option>
-                    <?php endwhile; ?>
-                </select>
-            </fieldset>
+            <label for="habitaciones">Habitaciones</label>
+            <input type="number" id="habitaciones" name="habitaciones" min="1" max="9"
+                value="<?php echo htmlspecialchars($propiedad->habitaciones, ENT_QUOTES); ?>">
 
-            <input type="submit" value="Crear" class="boton boton-verde">
-        </form>
-        
+            <label for="wc">Baños</label>
+            <input type="number" id="wc" name="wc" min="1" max="9"
+                value="<?php echo htmlspecialchars($propiedad->wc, ENT_QUOTES); ?>">
 
-    </main>
+            <label for="estacionamientos">Estacionamientos</label>
+            <input type="number" id="estacionamientos" name="estacionamientos" min="0" max="9"
+                value="<?php echo htmlspecialchars($propiedad->estacionamientos, ENT_QUOTES); ?>">
+        </fieldset>
+
+        <fieldset>
+            <legend>Vendedor</legend>
+
+            <select name="vendedores_id">
+                <option value="" disabled <?php echo empty($propiedad->vendedores_id) ? 'selected' : ''; ?>>-- Seleccione --</option>
+                <?php while ($row = mysqli_fetch_assoc($resultadoVendedores)): ?>
+                    <option value="<?php echo $row['id']; ?>"
+                        <?php echo $propiedad->vendedores_id == $row['id'] ? 'selected' : ''; ?>>
+                        <?php echo $row['nombre'] . ' ' . $row['apellido']; ?>
+                    </option>
+                <?php endwhile; ?>
+            </select>
+        </fieldset>
+
+        <input type="submit" value="Crear Propiedad" class="boton boton-verde">
+    </form>
+</main>
 
 <?php
-    incluirTemplate("footer");
+incluirTemplate("footer");
 ?>

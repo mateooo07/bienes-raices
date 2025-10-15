@@ -42,8 +42,7 @@ class Propiedad {
         $query = "INSERT INTO propiedades ($columnas) VALUES ($valores)";
 
         $resultado = self::$db->query($query);
-
-        debugear($resultado);
+        return ($resultado);
     }
 
 
@@ -76,9 +75,7 @@ class Propiedad {
     }
 
     public function validar(){
-        if (!$this->imagen || $this->imagen["error"] !== UPLOAD_ERR_OK) {
-            self::$errores[] = "La imagen es obligatoria o hubo un error al subirla.";
-        }
+
 
         if(!$this->titulo){
             self::$errores[] = "Debes añadir un título";
@@ -109,16 +106,17 @@ class Propiedad {
             self::$errores[] = "Elige un vendedor";
         }
 
-        // if(!$this->imagen["name"] || $this->imagen["error"]){
-        //     self::$errores[] = "La imagen es obligatoria";
-        // }
+        if(!$this->imagen){
+            self::$errores[] = "La imagen es obligatoria";
+        }
 
-        // $medida = 1000 * 40000;
-
-        // if($this->imagen["size"] > $medida){
-        //     self::$errores[] = "La imagen es muy pesada";
-        // }
 
         return self::$errores;
+    }
+
+    public function setImagen($imagen){
+        if($imagen){
+            $this->imagen = $imagen;
+        }
     }
 }
