@@ -2,6 +2,8 @@
     require "../includes/app.php";
     use App\Propiedad;
 
+    $db = conectarDB();
+
     estaAutenticado();
 
     $propiedades = Propiedad::all();
@@ -15,18 +17,21 @@
         $id = filter_var($id, FILTER_VALIDATE_INT);
 
         if ($id) {
-            $queryDelete = "DELETE FROM propiedades WHERE id = {$id}";
-            $resDelete = mysqli_query($db, $queryDelete);
-
             $queryImagen = "SELECT imagen FROM propiedades WHERE id = {$id}";
             $resImagen = mysqli_query($db, $queryImagen);
             $propiedad = mysqli_fetch_assoc($resImagen);
 
-            unlink("../imagenes/" . $propiedad["imagen"]);
+            if ($propiedad) {
+                unlink("../imagenes/" . $propiedad["imagen"]);
+            }
+
+            $queryDelete = "DELETE FROM propiedades WHERE id = {$id}";
+            $resDelete = mysqli_query($db, $queryDelete);
 
             if ($resDelete) {
-                header("Location: /admin?res=3"); 
-            } 
+                header("Location: /admin?res=3");
+                exit;
+            }
         }
     }
 
