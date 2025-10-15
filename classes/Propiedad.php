@@ -4,7 +4,7 @@ namespace App;
 class Propiedad {
 
     protected static $db;
-    protected static $columnas_DB = ["id", "titulo", "precio", "imagen", "descripcion", "habitaciones", "wc", "estacionamiento", "creado", "vendedores_id"];
+    protected static $columnas_DB = ["id", "titulo", "precio", "imagen", "descripcion", "habitaciones", "wc", "estacionamientos", "creado", "vendedores_id"];
 
     public $id;
     public $titulo;
@@ -13,7 +13,7 @@ class Propiedad {
     public $descripcion;
     public $habitaciones;
     public $wc;
-    public $estacionamiento;
+    public $estacionamientos;
     public $creado;
     public $vendedores_id;
 
@@ -25,21 +25,25 @@ class Propiedad {
         $this->descripcion = $args["descripcion"] ?? "";
         $this->habitaciones = $args["habitaciones"] ?? "";
         $this->wc = $args["wc"] ?? "";
-        $this->estacionamiento = $args["estacionamiento"] ?? "";
+        $this->estacionamientos = $args["estacionamientos"] ?? "";
         $this->creado = date("Y/m/d");
         $this->vendedores_id = $args["vendedores_id"] ?? "";
     }
 
     public function guardar(){
-
         $atributos = $this->sanitizarAtributos();
 
-        $query = "INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamientos, creado, vendedores_id) VALUES ('$this->titulo', '$this->precio', '$this->imagen', '$this->descripcion', '$this->habitaciones', '$this->wc', '$this->estacionamiento', '$this->creado', '$this->vendedores_id')";
+        $columnas = join(", ", array_keys($atributos));
+
+        $valores = "'" . join("', '", array_values($atributos)) . "'";
+
+        $query = "INSERT INTO propiedades ($columnas) VALUES ($valores)";
 
         $resultado = self::$db->query($query);
 
         debugear($resultado);
     }
+
 
     public function sanitizarAtributos(){
         $atributos = $this->atributos();
@@ -50,7 +54,7 @@ class Propiedad {
         }
 
         return $sanitizado;
-        }
+    }
 
     public function atributos(){
         $atributos = [];

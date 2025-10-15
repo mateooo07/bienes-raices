@@ -132,8 +132,8 @@
                 <label for="wc">Baño</label>
                 <input type="number" id="wc" min="1" placeholder="1" max="9" name="wc" value="<?php echo $wc; ?>">
 
-                <label for="estacionamiento">Estacionamiento</label>
-                <input type="number" id="estacionamiento" min="1" placeholder="1" max="9" name="estacionamiento" value="<?php echo $estacionamiento; ?>">
+                <label for="estacionamientos">Estacionamiento</label>
+                <input type="number" id="estacionamientos" min="1" placeholder="1" max="9" name="estacionamientos" value="<?php echo $estacionamiento; ?>">
             </fieldset>
             <fieldset>
                 <legend>Vendedor</legend>
