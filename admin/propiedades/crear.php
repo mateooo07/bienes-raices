@@ -30,17 +30,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (empty($errores)) {
 
-        $carpetaImagenes = "../../imagenes/";
-
-        if (!is_dir($carpetaImagenes)) {
-            mkdir($carpetaImagenes, 0777, true);
+        if (!is_dir(CARPETA_IMAGENES)) {
+            mkdir(CARPETA_IMAGENES, 0777, true);
         }
 
-        $imagen->save($carpetaImagenes . $nombreImagen);
-
-        if ($_FILES["imagen"]["tmp_name"]) {
-            $imagen->save($carpetaImagenes . $nombreImagen);
-        }
+        $imagen->save(CARPETA_IMAGENES . $nombreImagen);
 
         $resultado = $propiedad->guardar();
 

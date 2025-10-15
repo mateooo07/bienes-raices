@@ -1,12 +1,6 @@
 <?php
-    require "../../includes/funciones.php";
-
-    $auth = estaAutenticado();
-
-    if(!$auth){
-        header("Location: /");
-    }
-    require "../../includes/config/database.php";
+    require "../../includes/app.php";
+    estaAutenticado();
 
     $id = $_GET["id"];
 

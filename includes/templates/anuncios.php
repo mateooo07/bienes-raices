@@ -1,12 +1,21 @@
 <?php 
-    $db = conectarDB();
+$db = conectarDB();
 
-    $limite = $limite ?? 20;
-    $query = "SELECT * FROM propiedades LIMIT {$limite}";
+$limite = 3;
+$query = "SELECT * FROM propiedades LIMIT {$limite}";
+$resultado = mysqli_query($db, $query);
 
-
-    $resultado = mysqli_query($db, $query);
-
+function limitarTexto($texto, $maxCaracteres = 100) {
+    if (mb_strlen($texto) <= $maxCaracteres) {
+        return $texto;
+    }
+    $textoCortado = mb_substr($texto, 0, $maxCaracteres);
+    $ultimoEspacio = mb_strrpos($textoCortado, ' ');
+    if ($ultimoEspacio !== false) {
+        $textoCortado = mb_substr($textoCortado, 0, $ultimoEspacio);
+    }
+    return $textoCortado . '...';
+}
 ?>
 
 <div class="contenedor-anuncios">
@@ -16,7 +25,7 @@
 
         <div class="contenido-anuncio">
         <h3><?php echo $propiedad["titulo"]?></h3>
-        <p><?php echo $propiedad["descripcion"]?></p>
+        <p><?php echo limitarTexto($propiedad["descripcion"], 100); ?></p> 
         <p class="precio">$<?php echo $propiedad["precio"]?></p>
 
         <ul class="iconos-caracteristicas">
@@ -35,11 +44,7 @@
         </ul>
 
         <a href="anuncio.php?id=<?php echo $propiedad["id"]; ?>" class="boton-amarillo-block">Ver propiedad</a>
-
+        </div>
     </div>
     <?php endwhile; ?>
 </div>
-
-<?php
-
-?>

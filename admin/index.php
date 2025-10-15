@@ -1,14 +1,12 @@
 <?php
-    require "../includes/funciones.php";
+    require "../includes/app.php";
+    use App\Propiedad;
 
     estaAutenticado();
-    
-    require "../includes/config/database.php";
-    $db = conectarDB();
 
-    // Consulta de propiedades
-    $query = "SELECT * FROM propiedades";
-    $resultadoConsulta = mysqli_query($db, $query);
+    $propiedades = Propiedad::all();
+
+    debugear($propiedades);
 
     // Resultado de operaciones
     $resultado = $_GET["res"] ?? null;
