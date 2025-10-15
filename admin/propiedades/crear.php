@@ -27,8 +27,6 @@
 
         $propiedad -> guardar();
 
-        debugear($propiedad);
-
         $imagen = $_FILES["imagen"] ?? null;
 
         if (!$imagen || $imagen["error"] !== UPLOAD_ERR_OK) {
@@ -85,8 +83,6 @@
             $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
             
             move_uploaded_file($imagen["tmp_name"], $carpetaImagenes . $nombreImagen);
-
-            $query = "INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamientos, creado, vendedores_id) VALUES ('$titulo', '$precio', '$nombreImagen', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedorId')";
 
 
             $resultado = mysqli_query($db, $query);

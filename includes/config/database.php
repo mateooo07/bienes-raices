@@ -5,7 +5,7 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . "/../../");
 $dotenv->load();
 
 function conectarDB() : mysqli {
-    $db = mysqli_connect(
+    $db = new mysqli(
         $_ENV['DB_HOST'],
         $_ENV['DB_USER'],
         $_ENV['DB_PASS'],

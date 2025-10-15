@@ -1,8 +1,10 @@
 <?php
-
-namespace App;
+namespace App;         
 
 class Propiedad {
+
+    protected static $db;
+
     public $id;
     public $titulo;
     public $precio;
@@ -25,5 +27,17 @@ class Propiedad {
         $this->estacionamiento = $args["estacionamiento"] ?? "";
         $this->creado = date("Y/m/d");
         $this->vendedores_id = $args["vendedores_id"] ?? "";
+    }
+
+    public function guardar(){
+        $query = "INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamientos, creado, vendedores_id) VALUES ('$this->titulo', '$this->precio', '$this->imagen', '$this->descripcion', '$this->habitaciones', '$this->wc', '$this->estacionamiento', '$this->creado', '$this->vendedores_id')";
+
+        $resultado = self::$db->query($query);
+
+        debugear($resultado);
+    }
+
+    public static function setDB($database){
+        self::$db = $database;
     }
 }
