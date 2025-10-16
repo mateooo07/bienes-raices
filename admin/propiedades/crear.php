@@ -2,17 +2,18 @@
 require "../../includes/app.php";
 
 use App\Propiedad;
+use App\Vendedor;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager as Image;
 
 estaAutenticado();
 
-$errores = [];
-
-$consultaVendedores = "SELECT * FROM vendedores";
-$resultadoVendedores = mysqli_query($db, $consultaVendedores);
 
 $propiedad = new Propiedad();
+
+$vendedores = Vendedor::all();
+
+$errores = Propiedad::getErrores();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
