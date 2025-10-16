@@ -24,3 +24,9 @@ function debugear($variable){
     echo"</pre>";
     exit;
 }
+
+function validarTipoContenido($tipo){
+    $tipos = ["vendedor", "propiedad"];
+
+    return in_array($tipo, $tipos);
+}

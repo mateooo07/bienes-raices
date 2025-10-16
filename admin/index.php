@@ -1,12 +1,13 @@
 <?php
     require "../includes/app.php";
     use App\Propiedad;
-
-    $db = conectarDB();
+    use App\Vendedor;
 
     estaAutenticado();
 
     $propiedades = Propiedad::all();
+
+    $vendedores = Vendedor::all();
 
     $resultado = $_GET["res"] ?? null;
 
@@ -15,9 +16,18 @@
         $id = filter_var($id, FILTER_VALIDATE_INT);
 
         if ($id) {
-            $propiedad = Propiedad::find($id);
 
-            $propiedad -> eliminar();
+            $tipo = $_POST["tipo"];
+
+            if(validarTipoContenido($tipo)){
+                if($tipo == "vendedor"){
+                    $vendedor = Vendedor::find($id);
+                    $vendedor -> eliminar();
+                }else if($tipo == "propiedad"){
+                    $propiedad = Propiedad::find($id);
+                    $propiedad -> eliminar();
+                }
+            }
         }
     }
 
@@ -39,6 +49,7 @@
     <a href="/admin/propiedades/crear.php" class="boton boton-verde">Nueva Propiedad</a>
 </main>
 
+<h2>Propiedades</h2>
 <table class="tabla-propiedades">
     <thead>
         <tr>
@@ -64,6 +75,38 @@
                     
                     <form method="POST" class="w-100" onsubmit="return confirm('¿Deseas eliminar esta propiedad?');">
                         <input type="hidden" name="id" value="<?php echo $propiedad->id; ?>">
+                        <input type="hidden" name="tipo" value="propiedad">
+                        <input type="submit" value="Eliminar" class="boton-rojo">
+                    </form>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
+<h2>Vendedores</h2>
+<table class="tabla-propiedades">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Teléfono</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <?php foreach($vendedores as $vendedor): ?>
+            <tr>
+                <td><?php echo $vendedor->id; ?></td>
+                <td><?php echo $vendedor->nombre .  " " .  $vendedor->apellido; ?></td>
+                <td><?php echo $vendedor->telefono; ?></td>
+                <td>
+                    <a href="/admin/vendedores/actualizar.php?id=<?php echo $vendedor->id; ?>" class="boton-amarillo-block">Actualizar</a>
+                    
+                    <form method="POST" class="w-100" onsubmit="return confirm('¿Deseas eliminar este vendedor?');">
+                        <input type="hidden" name="id" value="<?php echo $vendedor->id; ?>">
+                        <input type="hidden" name="tipo" value="vendedor">
                         <input type="submit" value="Eliminar" class="boton-rojo">
                     </form>
                 </td>
