@@ -127,6 +127,14 @@ class ActiveRecord {
         return $resultado;
     }
 
+    public static function get($limite){
+        $query = "SELECT * FROM " . static::$tabla . " LIMIT " . $limite;
+
+        $resultado = self::consultarSQL($query);     
+
+        return $resultado;
+    }
+
     public static function find($id){
         $query = "SELECT * FROM " . static::$tabla . " WHERE id = {$id}";
 
