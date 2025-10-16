@@ -8,7 +8,6 @@ use Intervention\Image\ImageManager as Image;
 
 estaAutenticado();
 
-
 $propiedad = new Propiedad();
 
 $vendedores = Vendedor::all();

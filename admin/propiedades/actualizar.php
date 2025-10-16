@@ -1,6 +1,7 @@
 <?php
     require "../../includes/app.php";
     use App\Propiedad;
+    use App\Vendedor;
     use Intervention\Image\Drivers\Gd\Driver;
     use Intervention\Image\ImageManager as Image;
     estaAutenticado();
@@ -13,12 +14,11 @@
         header("Location: /admin");
     }
 
-    $errores = Propiedad::getErrores();
-
     $propiedad = Propiedad::find($id);
-    
-    $consulta = "SELECT * FROM vendedores";
-    $resultadoVendedores = mysqli_query($db, $consulta);
+
+    $vendedores = Vendedor::all();
+
+    $errores = Propiedad::getErrores();
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
@@ -37,10 +37,10 @@
         }
 
         if (empty($errores)) {
-
-            if (isset($imagen)) {
+            if ($_FILES["propiedad"]["tmp_name"]["imagen"]){
                 $imagen->save(CARPETA_IMAGENES . $nombreImagen);
             }
+            
             $propiedad->guardar();
         }
     }

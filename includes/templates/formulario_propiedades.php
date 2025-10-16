@@ -43,7 +43,7 @@
                 <option selected value="" disabled>-- Seleccione --</option>
                 <?php foreach($vendedores as $vendedor): ?>
                     <option
-                        <?php echo $propiedad['vendedores_id'] === $vendedor['id'] ? "selected" : ""; ?>
+                        <?php echo $propiedad->vendedores_id == $vendedor->id ? "selected" : ""; ?>
                         value="<?php echo htmlspecialchars($vendedor->id, ENT_QUOTES)?>"><?php echo htmlspecialchars($vendedor->nombre . " " .  $vendedor->apellido, ENT_QUOTES); ?></option>
                 <?php endforeach; ?>
             </select>
