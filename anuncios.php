@@ -4,7 +4,7 @@
 ?>
     <main class="contenedor seccion">
         <h1>Casas y Departamentos en Venta</h1>
-        <div class="contenedor-anuncios">
+        <div class="contenedor-anuncios-2">
         <?php 
             include "includes/templates/anuncios.php"
         ?>

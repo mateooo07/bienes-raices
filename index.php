@@ -60,7 +60,7 @@
                         <h4>Terraza en el techo de tu casa</h4>
                         <p class="info-meta">Escrito el <span>20/10/2021</span> por: <span>Admin</span></p>
                         <p>
-                            Consejos para construir una terraza en el techo de tu casa con lo mejores materiales y ahorrando dinero
+                            Consejos para construir una terraza en el techo de tu casa con lo mejores materiales y ahorrando dinero.
                         </p>
                     </a>
                 </div>

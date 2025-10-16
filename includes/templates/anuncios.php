@@ -1,8 +1,9 @@
 <?php 
 $db = conectarDB();
 
-$limite = 3;
-$query = "SELECT * FROM propiedades LIMIT {$limite}";
+$limite_query = isset($limite) && $limite > 0 ? " LIMIT {$limite}" : "";
+
+$query = "SELECT * FROM propiedades" . $limite_query;
 $resultado = mysqli_query($db, $query);
 
 function limitarTexto($texto, $maxCaracteres = 100) {
@@ -19,7 +20,9 @@ function limitarTexto($texto, $maxCaracteres = 100) {
 ?>
 
 <div class="contenedor-anuncios">
-    <?php while($propiedad = mysqli_fetch_assoc($resultado)): ?>
+    <?php 
+    while($propiedad = mysqli_fetch_assoc($resultado)): 
+    ?>
     <div class="anuncio">
         <img src="/imagenes/<?php echo $propiedad["imagen"] ?>" alt="anuncio imagen" loading="lazy">
 
