@@ -8,30 +8,16 @@
 
     $propiedades = Propiedad::all();
 
-    // Resultado de operaciones
     $resultado = $_GET["res"] ?? null;
 
-    // Manejo de eliminación
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $id = $_POST["id"] ?? null;
         $id = filter_var($id, FILTER_VALIDATE_INT);
 
         if ($id) {
-            $queryImagen = "SELECT imagen FROM propiedades WHERE id = {$id}";
-            $resImagen = mysqli_query($db, $queryImagen);
-            $propiedad = mysqli_fetch_assoc($resImagen);
+            $propiedad = Propiedad::find($id);
 
-            if ($propiedad) {
-                unlink("../imagenes/" . $propiedad["imagen"]);
-            }
-
-            $queryDelete = "DELETE FROM propiedades WHERE id = {$id}";
-            $resDelete = mysqli_query($db, $queryDelete);
-
-            if ($resDelete) {
-                header("Location: /admin?res=3");
-                exit;
-            }
+            $propiedad -> eliminar();
         }
     }
 
