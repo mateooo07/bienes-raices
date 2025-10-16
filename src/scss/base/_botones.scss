@@ -15,3 +15,7 @@
     width: 100%;
     border: none;
 }
+
+.boton-azul{
+    @include boton(#0F0391, inline-block);
+}
