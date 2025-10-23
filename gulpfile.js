@@ -29,7 +29,7 @@ function css() {
         .pipe(sass().on('error', sass.logError))
         .pipe(postcss([autoprefixer(), cssnano()]))
         .pipe(sourcemaps.write('.'))
-        .pipe(dest('build/css'));
+        .pipe(dest('./public/build/css'));
 }
 
 // ======= JavaScript =======
@@ -40,7 +40,7 @@ function javascript() {
         .pipe(terser({ mangle: false })) // mantiene nombres globales
         .pipe(sourcemaps.write('.'))
         .pipe(rename({ suffix: '.min' }))
-        .pipe(dest('build/js'));
+        .pipe(dest('./public/build/js'));
 }
 
 // ======= Generar Modernizr actualizado =======
@@ -57,14 +57,14 @@ function buildModernizr(cb) {
 // ======= Copiar Modernizr al build =======
 function copiarModernizr() {
     return src(paths.modernizr)
-        .pipe(dest('build/js'));
+        .pipe(dest('./public/build/js'));
 }
 
 // ======= Imágenes =======
 function imagenes() {
     return src(paths.imagenes)
         .pipe(cache(imagemin({ optimizationLevel: 3 })))
-        .pipe(dest('build/img'))
+        .pipe(dest('./public/build/img'))
         .pipe(notify({ message: 'Imágenes optimizadas' }));
 }
 
@@ -72,7 +72,7 @@ function imagenes() {
 function versionWebp() {
     return src(paths.imagenes)
         .pipe(webp())
-        .pipe(dest('build/img'))
+        .pipe(dest('./public/build/img'))
         .pipe(notify({ message: 'WebP generado' }));
 }
 
