@@ -24,4 +24,8 @@ class Router {
 
         }
     }
+
+    public function render($view){
+        include __DIR__ . "/views/$view.php";
+    }
 }
