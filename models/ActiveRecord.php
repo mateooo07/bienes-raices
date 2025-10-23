@@ -72,6 +72,7 @@ class ActiveRecord {
         
         if($resultado){
             header("Location: /admin?res=1");
+            exit;
         }
     }
 
