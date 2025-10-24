@@ -15,7 +15,7 @@ class Router {
 
     public function comprobarRutas()
     {
-        $urlActual = $_SERVER["PATH_INFO"];
+        $urlActual = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
         $metodo = $_SERVER["REQUEST_METHOD"];
 
         if($metodo === "GET"){
@@ -28,7 +28,7 @@ class Router {
         if($fn){
             call_user_func($fn, $this);
         }else{
-
+            echo "sali de aca puto";
         }
     }
 
@@ -36,7 +36,6 @@ class Router {
         foreach($datos as $key => $value){
             $$key = $value;
         }
-        
         ob_start();
         include __DIR__ . "/views/$view.php";
 
