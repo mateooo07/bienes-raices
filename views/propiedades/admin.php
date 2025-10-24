@@ -38,7 +38,7 @@
                 <td>
                     <a href="propiedades/actualizar?id=<?php echo $propiedad->id; ?>" class="boton-amarillo-block">Actualizar</a>
                     
-                    <form method="POST" class="w-100" onsubmit="return confirm('¿Deseas eliminar esta propiedad?');">
+                    <form method="POST" action="/propiedades/eliminar" class="w-100" onsubmit="return confirm('¿Deseas eliminar esta propiedad?');">
                         <input type="hidden" name="id" value="<?php echo $propiedad->id; ?>">
                         <input type="hidden" name="tipo" value="propiedad">
                         <input type="submit" value="Eliminar" class="boton-rojo">
