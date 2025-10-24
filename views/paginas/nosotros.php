@@ -1,0 +1,46 @@
+<main class="contenedor seccion">
+        <h1>Conoce Sobre Nosotros</h1>
+
+        <div class="contenido-nosotros">
+            <div class="imagen">
+                <picture>
+                    <source srset="build/img/nosotros.webp" type="image/webp">
+                    <source srset="build/img/nosotros.jpg" type="image/jpg">
+                    <img src="build/img/nosotros.jpg" alt="imagen nosotros" loading="lazy">
+                </picture>
+            </div>
+            <div class="texto-nosotros">
+                <blockquote>
+                    25 años de experiencia
+                </blockquote>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum, tempore ab maiores aliquid aperiam expedita sint soluta blanditiis nam, fugiat tempora perferendis reprehenderit amet possimus dolor minus error enim saepe.
+                Perferendis, id ut doloribus magni quo explicabo vero tempora rerum, ex labore nam adipisci error neque! Veniam vel tenetur, eveniet architecto alias saepe, quae beatae maiores neque quidem perspiciatis autem?
+                Vel, eveniet atque eaque vero minus obcaecati pariatur, asperiores commodi debitis odio autem temporibus rerum. Dolorum cumque deserunt, reiciendis molestiae quas itaque dolores ratione praesentium nam, laboriosam perferendis quos ea?
+                Nihil atque suscipit blanditiis, est sunt natus magni porro optio eligendi amet! .</p>
+            </div>
+        </div>
+    </main>
+
+    <section class="contenedor seccion">
+        <h2>Más Sobre Nosotros</h2>
+
+        <div class="iconos-nosotros">
+            <div class="icono">
+                <img src="build/img/icono1.svg" alt="icono seguridad" loading="lazy">
+                <h3>Seguridad</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit eos perspiciatis aut, amet soluta laudantium animi eum ducimus accusantium error itaque repellendus quam possimus placeat? Ratione iusto amet esse debitis.</p>
+            </div>
+
+            <div class="icono">
+                <img src="build/img/icono2.svg" alt="icono precio" loading="lazy">
+                <h3>Precio</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit eos perspiciatis aut, amet soluta laudantium animi eum ducimus accusantium error itaque repellendus quam possimus placeat? Ratione iusto amet esse debitis.</p>
+            </div>
+
+            <div class="icono">
+                <img src="build/img/icono3.svg" alt="icono tiempo" loading="lazy">
+                <h3>Tiempo</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit eos perspiciatis aut, amet soluta laudantium animi eum ducimus accusantium error itaque repellendus quam possimus placeat? Ratione iusto amet esse debitis.</p>
+            </div>
+        </div>
+    </section>
