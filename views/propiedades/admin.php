@@ -11,7 +11,7 @@
         } 
     ?>
     <a href="/propiedades/crear" class="boton boton-verde">Nueva Propiedad</a>
-    <a href="/vendedores/crear.php" class="boton boton-amarillo">Nuevo Vendedor</a>
+    <a href="/vendedores/crear" class="boton boton-amarillo">Nuevo Vendedor</a>
 </main>
 
 <h2>Propiedades</h2>
@@ -67,9 +67,9 @@
                     <td><?php echo $vendedor->nombre .  " " .  $vendedor->apellido; ?></td>
                     <td><?php echo $vendedor->telefono; ?></td>
                     <td>
-                        <a href="/admin/vendedores/actualizar.php?id=<?php echo $vendedor->id; ?>" class="boton-amarillo-block">Actualizar</a>
+                        <a href="/vendedores/actualizar?id=<?php echo $vendedor->id; ?>" class="boton-amarillo-block">Actualizar</a>
                         
-                        <form method="POST" class="w-100" onsubmit="return confirm('¿Deseas eliminar este vendedor?');">
+                        <form method="POST" action="vendedores/eliminar" class="w-100" onsubmit="return confirm('¿Deseas eliminar este vendedor?');">
                             <input type="hidden" name="id" value="<?php echo $vendedor->id; ?>">
                             <input type="hidden" name="tipo" value="vendedor">
                             <input type="submit" value="Eliminar" class="boton-rojo">
