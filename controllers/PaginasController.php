@@ -57,7 +57,7 @@ class PaginasController{
     public static function contacto(Router $router){
         if($_SERVER["REQUEST_METHOD"] === "POST") {
             $respuestas = $_POST["contacto"];
-                
+            $mensaje = null;
 
             $mail = new PHPMailer(true);
 
@@ -80,26 +80,31 @@ class PaginasController{
                 $contenido = "<html>";
                 $contenido .= "<p>Tienes un nuevo mensaje!</p>";
                 $contenido .= "<p>Nombre: {$respuestas["nombre"]}</p>";
-                $contenido .= "<p>Email: {$respuestas["email"]}</p>";
-                $contenido .= "<p>Teléfono: {$respuestas["telefono"]}</p>";
+                if($respuestas["contacto"] === "telefono"){
+                    $contenido .= "<p>Prefiere ser contactado por: llamada teléfonica";
+                    $contenido .= "<p>Teléfono: {$respuestas["telefono"]}</p>";
+                    $contenido .= "<p>Fecha Contacto: {$respuestas["fecha"]}</p>";
+                    $contenido .= "<p>Hora Contacto: {$respuestas["hora"]}</p>";
+                }else{
+                    $contenido .= "<p>Prefiere ser contactado por: correo electrónico";
+                    $contenido .= "<p>Email: {$respuestas["email"]}</p>";
+                }   
                 $contenido .= "<p>Mensaje: {$respuestas["mensaje"]}</p>";
                 $contenido .= "<p>Vende o Compra: {$respuestas["tipo"]}</p>";
                 $contenido .= "<p>Presupuesto o Precio: $ {$respuestas["precio"]}</p>";
-                $contenido .= "<p>Prefiere ser contactado por:  {$respuestas["contacto"]}</p>";
-                $contenido .= "<p>Fecha Contacto: {$respuestas["fecha"]}</p>";
-                $contenido .= "<p>Hora Contacto: {$respuestas["hora"]}</p>";
+                
                 $contenido .= "</html>";
                 $mail->Body = $contenido;
                 $mail->AltBody = "Esto es texto alternativo sin HTML";
 
                 $mail->send();
             } catch (Exception $e) {
-                echo "El mensaje no se pudo enviar. Error: {$mail->ErrorInfo}";
+                $mensaje = "El mensaje no se pudo enviar. Error: {$mail->ErrorInfo}";
             }
         }
 
         $router->render("paginas/contacto", [
-
+            "mensaje" => $mensaje
         ]);
     }
 }
