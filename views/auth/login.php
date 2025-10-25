@@ -7,7 +7,7 @@
             </div>
         <?php endforeach;?>
 
-        <form class="formulario" method="post" action="/login">
+        <form class="formulario" method="post" action="/login"ccccccccccccccccc>
             <fieldset>
                 <label for="email">E-mail</label>
                 <input type="email" name="email" placeholder="Tu Email" id="email" required>

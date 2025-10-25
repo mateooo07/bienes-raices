@@ -19,9 +19,11 @@ class LoginController{
                 if(!$resultado){
                     $errores = Admin::getErrores();
                 }else{
-                    $autenticado = $auth->comprobarPassword($resultado);
-                    if($autenticado){
 
+                    $autenticado = $auth->comprobarPassword($resultado);
+
+                    if($autenticado){
+                        $auth->autenticar();
                     }else{
                         $errores = Admin::getErrores();
                     }
@@ -35,6 +37,10 @@ class LoginController{
     }
 
     public static function logout(){
-        
+        session_start();
+
+        $_SESSION =  [];
+
+        header("Location: /");
     }
 }
