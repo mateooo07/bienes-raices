@@ -13,7 +13,7 @@
             <legend>Información Personal</legend>
 
             <label for="contacto[nombre]">Nombre</label>
-            <input type="text" placeholder="Tu Nombre" id="contacto[nombre]" name="nombre" required minlength="2" maxlength="50">
+            <input type="text" placeholder="Tu Nombre" id="contacto[nombre]" name="contacto[nombre]" required minlength="2" maxlength="50">
 
             <label for="email">E-mail</label>
             <input type="email" placeholder="Tu Email" id="email" name="contacto[email]" required>
@@ -45,10 +45,10 @@
             <p>Cómo desea ser contactado</p>
             <div class="forma-contacto">
                 <label for="contactar-telefono">Teléfono</label>
-                <input name="contacto[contacto]" type="radio" value="telefono" id="contactar-telefono" required>
+                <input name="contacto[contacto]" type="radio" value="Telèfono" id="contactar-telefono" required>
 
                 <label for="contactar-email">E-mail</label>
-                <input name="contacto[contacto]" type="radio" value="email" id="contactar-email">
+                <input name="contacto[contacto]" type="radio" value="Email" id="contactar-email">
             </div>
 
             <p>Si eligió teléfono, elija la fecha y la hora</p>
