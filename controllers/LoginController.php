@@ -12,6 +12,21 @@ class LoginController{
             $auth = new Admin($_POST);
 
             $errores = $auth->validar();
+
+            if(empty($errores)){
+                $resultado = $auth->existeUsuario();
+
+                if(!$resultado){
+                    $errores = Admin::getErrores();
+                }else{
+                    $autenticado = $auth->comprobarPassword($resultado);
+                    if($autenticado){
+
+                    }else{
+                        $errores = Admin::getErrores();
+                    }
+                }
+            }
         }
 
         $router->render("auth/login", [
